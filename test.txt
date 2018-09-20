@@ -1,0 +1,26 @@
+int iterance = 1000;
+
+PointCP[] pointData = new PointCP[iterance];
+
+int startTime = ;
+int endTime = ;
+
+
+startTime = getTime();
+for(int i=0; i<=1000; i++)
+{
+	if(i%2==0)
+	{
+		int xCartesien = Math.random()*1000;
+		int yCartesien = Math.random()*1000;
+		pointData[i] = new PointCP('C', xCartesien, yCartesien);
+	}
+	elseif(i%2==1)
+	{
+		int xTheta;
+		int yTheta;
+		pointData[i] = new PointCP('P', xCartesien, yCartesien);
+	}
+}
+endTime = getTime();
+int elapsedTime = ( endTime - startTime);
