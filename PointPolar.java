@@ -41,6 +41,16 @@ public class PointPolar
     this.rho = rho;
     this.theta = theta;
   }
+  
+  /**
+   * Constructor with cartesian as param
+   * @param pc
+   */
+  public PointPolar(PointPolar pp)
+  {
+	  this.rho = pp.getRho();
+	  this.theta = pp.getTheta();
+  }
 	
   
   //Instance methods **************************************************

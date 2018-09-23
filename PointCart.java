@@ -40,10 +40,18 @@ public class PointCart
    */
   public PointCart(double x, double y)
   {
-    
     this.x = x;
     this.y = y;
-    
+  }
+  
+  /**
+   * Constructor with cartesian as param
+   * @param pc
+   */
+  public PointCart(PointCart pc)
+  {
+	  this.x = pc.getX();
+	  this.y = pc.getY();
   }
 	
   
