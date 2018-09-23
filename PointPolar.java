@@ -1,36 +1,36 @@
-// This file contains material supporting section 2.9 of the textbook:
-// "Object Oriented Software Engineering" and is issued under the open-source
-// license found at www.lloseng.com 
-
 /**
- * This class contains instances of coordinates in either polar or
- * cartesian format.  It also provides the utilities to convert
- * them into the other type. It is not an optimal design, it is used
- * only to illustrate some design issues.
+ * This class has been modified for the lab02\assignement 01 of the class SEG2105\
+ * Design #02 (Store polar coordinates only)
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge
+ * @Modifiedby Frederick Gaudet and Evan
  * @version July 2000
+ * @modified September 2018 for SEG 2105lab
  */
 public class PointPolar
 {
   //Instance variables ************************************************
   
   /**
-   * Contains the current value of X or RHO depending on the type
-   * of coordinates.
+   * Contains the RHO
    */
   private double rho;
   
   /**
-   * Contains the current value of Y or THETA value depending on the
-   * type of coordinates.
+   * Contains the THETA
    */
   private double theta;
 	
   
   //Constructors ******************************************************
-
+  /** 
+   * Default constructor
+   */
+  public PointPolar()
+  {
+	  
+  }
   /**
    * Constructs a coordinate object, with a type identifier.
    */
@@ -45,22 +45,26 @@ public class PointPolar
   
   //Instance methods **************************************************
  
- 
+  //Return the X value computed
   public double getX()
   {
       return (Math.cos(Math.toRadians(theta)) * rho);
   }
-  
+
+  //Return the Y value computed
   public double getY()
   {
       return (Math.sin(Math.toRadians(theta)) * rho);
   }
   
+
+  //Return the RHO value stored
   public double getRho()
   {
     return this.rho;
   }
   
+  //Return the THETA value stored
   public double getTheta()
   {
     return this.theta;
@@ -74,7 +78,7 @@ public class PointPolar
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCP pointB)
+  public double getDistance(PointPolar pointB)
   {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
@@ -92,14 +96,13 @@ public class PointPolar
    * @param rotation The number of degrees to rotate the point.
    * @return The rotated image of the original point.
    */
-  public PointCP rotatePoint(double rotation)
+  public PointPolar rotatePoint(double rotation)
   {
     double radRotation = Math.toRadians(rotation);
     double X = getX();
     double Y = getY();
         
-    return new PointCP('C',
-      (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+    return new PointPolar((Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
       (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
 

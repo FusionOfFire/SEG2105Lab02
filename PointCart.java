@@ -1,16 +1,12 @@
-// This file contains material supporting section 2.9 of the textbook:
-// "Object Oriented Software Engineering" and is issued under the open-source
-// license found at www.lloseng.com 
-
 /**
- * This class contains instances of coordinates in either polar or
- * cartesian format.  It also provides the utilities to convert
- * them into the other type. It is not an optimal design, it is used
- * only to illustrate some design issues.
+ * This class has been modified for the lab02\assignement 01 of the class SEG2105\
+ * Design #03 (Store cartesian coordinates only)
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge
+ * @Modifiedby Frederick Gaudet and Evan
  * @version July 2000
+ * @modified September 2018 for SEG 2105lab
  */
 public class PointCart
 {
@@ -32,7 +28,13 @@ public class PointCart
 	
   
   //Constructors ******************************************************
-
+  /** 
+   * Default constructor
+   */
+  public PointCart()
+  {
+	  
+  }
   /**
    * Constructs a coordinate object, with a type identifier.
    */
@@ -46,22 +48,25 @@ public class PointCart
 	
   
   //Instance methods **************************************************
- 
+  //Return the X value stored
   public double getX()
   {
       return x;
   }
-  
+
+  //Return the Y value stored
   public double getY()
   {
       return y;
   }
-  
+
+  //Return the RHO value computed
   public double getRho()
   {
       return (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
   }
-  
+
+  //Return the THETA value computed
   public double getTheta()
   {
       return Math.toDegrees(Math.atan2(y, x));

@@ -5,17 +5,19 @@
 import java.io.*;
 
 /**
- * This class prompts the user for a set of coordinates, and then 
- * converts them from polar to cartesian or vice-versa.
+ * This class has been modified for the lab02\assignement 01 of the class SEG2105\
+ * This is the main test modified on purpose
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge
- * @author Paul Holden
+ * @Modifiedby Frederick Gaudet and Evan
  * @version July 2000
+ * @modified September 2018 for SEG 2105lab
  */
 public class PointCPTest
 {
   //Class methods *****************************************************
+
 
   /**
    * This method is responsible for the creation of the PointCP
@@ -33,8 +35,15 @@ public class PointCPTest
    */
   public static void main(String[] args)
   {
-    PointCP point;
-
+	PointCart pointCart = new PointCart();
+	PointPolar pointPolar = new PointPolar();
+	
+	
+	char coordType = 'A';
+	
+    byte[] buffer = new byte[1024];  //Buffer to hold byte input
+    String theInput = "";  // Input information
+	
     System.out.println("Cartesian-Polar Coordinates Conversion Program");
 
     // Check if the user input coordinates from the command line
@@ -42,9 +51,13 @@ public class PointCPTest
     // If he did not, prompt the user for them.
     try
     {
-      point = new PointCP(args[0].toUpperCase().charAt(0), 
-        Double.valueOf(args[1]).doubleValue(), 
-        Double.valueOf(args[2]).doubleValue());
+    	coordType = args[0].toUpperCase().charAt(0);
+    	if(coordType == 'C')
+    		pointCart = new PointCart(	Double.valueOf(args[1]).doubleValue(),
+    									Double.valueOf(args[2]).doubleValue());
+    	else if(coordType == 'P')
+    		pointPolar = new PointPolar(Double.valueOf(args[1]).doubleValue(),
+    									Double.valueOf(args[2]).doubleValue());
     }
     catch(Exception e)
     {
@@ -55,7 +68,35 @@ public class PointCPTest
 
       try
       {
-        point = getInput();
+    	  boolean isOK = false;
+    	  while(isOK == false) {
+    		  isOK = true;
+	    	  System.out.print("Enter the type of Coordinates you "
+	    	            + "are inputting ((C)artesian / (P)olar): ");
+	          for(int k=0; k<1024; k++)
+	          	buffer[k] = '\u0020';        
+	               
+	          System.in.read(buffer);
+	          theInput = new String(buffer).trim();
+	          if (!((theInput.toUpperCase().charAt(0) == 'C') 
+                  || (theInput.toUpperCase().charAt(0) == 'P')))
+              {
+	        	  //Invalid input, reset flag so user is prompted again
+	        	  isOK = false;
+              }
+              else
+              {
+            	  coordType = theInput.toUpperCase().charAt(0);
+              }
+    	  }
+    	  if(coordType == 'C')
+    	  {    
+    		  pointCart = getCart(coordType);
+    	  }
+    	  else if(coordType == 'P')
+    	  {
+    		  pointPolar = getPolar(coordType);
+    	  }
       }
       catch(IOException ex)
       {
@@ -63,101 +104,116 @@ public class PointCPTest
         return;
       }
     }
-    System.out.println("\nYou entered:\n" + point);
-    point.convertStorageToCartesian();
-    System.out.println("\nAfter asking to store as Cartesian:\n" + point);
-    point.convertStorageToPolar();
-    System.out.println("\nAfter asking to store as Polar:\n" + point);
+    if(coordType == 'C')
+    {    
+        System.out.println("\nAfter asking to store as Cartesian:\n" + pointCart);
+ 
+    }
+    else if(coordType == 'P')
+    {
+    	System.out.println("\nAfter asking to store as Polar:\n" + pointPolar);
+    }
+    else 
+    	System.out.println("Not working please try again");
+
+
+    
   }
 
   /**
-   * This method obtains input from the user and verifies that
-   * it is valid.  When the input is valid, it returns a PointCP
-   * object.
-   *
-   * @return A PointCP constructed using information obtained 
-   *         from the user.
-   * @throws IOException If there is an error getting input from
-   *         the user.
+   * This method only work for point cart
    */
-  private static PointCP getInput() throws IOException
+  private static PointCart getCart(char coordType) throws IOException
   {
     byte[] buffer = new byte[1024];  //Buffer to hold byte input
     boolean isOK = false;  // Flag set if input correct
     String theInput = "";  // Input information
     
     //Information to be passed to the constructor
-    char coordType = 'A'; // Temporary default, to be set to P or C
     double a = 0.0;
     double b = 0.0;
 
     // Allow the user to enter the three different arguments
-    for (int i = 0; i < 3; i++)
+    
+    while (!(isOK))
     {
-      while (!(isOK))
-      {
-        isOK = true;  //flag set to true assuming input will be valid
-          
-        // Prompt the user
-        if (i == 0) // First argument - type of coordinates
-        {
-          System.out.print("Enter the type of Coordinates you "
-            + "are inputting ((C)artesian / (P)olar): ");
-        }
-        else // Second and third arguments
-        {
-          System.out.print("Enter the value of " 
-            + (coordType == 'C' 
-              ? (i == 1 ? "X " : "Y ")
-              : (i == 1 ? "Rho " : "Theta ")) 
-            + "using a decimal point(.): ");
-        }
-
-        // Get the user's input      
-       
-        // Initialize the buffer before we read the input
-        for(int k=0; k<1024; k++)
-        	buffer[k] = '\u0020';        
-             
-        System.in.read(buffer);
-        theInput = new String(buffer).trim();
-        
-        // Verify the user's input
-        try
-        {
-          if (i == 0) // First argument -- type of coordinates
-          {
-            if (!((theInput.toUpperCase().charAt(0) == 'C') 
-              || (theInput.toUpperCase().charAt(0) == 'P')))
-            {
-              //Invalid input, reset flag so user is prompted again
-              isOK = false;
-            }
-            else
-            {
-              coordType = theInput.toUpperCase().charAt(0);
-            }
-          }
-          else  // Second and third arguments
-          {
-            //Convert the input to double values
-            if (i == 1)
-              a = Double.valueOf(theInput).doubleValue();
-            else
-              b = Double.valueOf(theInput).doubleValue();
-          }
-        }
-        catch(Exception e)
-        {
-        	System.out.println("Incorrect input");
-        	isOK = false;  //Reset flag as so not to end while loop
-        }
-      }
-
-      //Reset flag so while loop will prompt for other arguments
-      isOK = false;
+    	isOK = true;
+    	System.out.println("Enter the cartesian value of...");
+    	for(int i=0;i<2;i++)
+    	{
+    		System.out.print(i == 0 ? "X " : "Y ");
+    		System.in.read(buffer);
+	        theInput = new String(buffer).trim();
+	        try
+	        {
+	          
+	            //Convert the input to double values
+	            if (i == 0)
+	              a = Double.valueOf(theInput).doubleValue();
+	            else
+	              b = Double.valueOf(theInput).doubleValue();
+	            }
+	        catch(Exception e)
+	        {
+	        	System.out.println("Incorrect input");
+	        	i=3;
+	        	isOK = false;  //Reset flag as so not to end while loop
+	        }
+    	}
+    	
     }
     //Return a new PointCP object
-    return (new PointCP(coordType, a, b));
+    return (new PointCart(a, b));
+  }
+  
+  /**
+   * This method only work for polar coordinate
+   */
+  private static PointPolar getPolar(char coordType) throws IOException
+  {
+    byte[] buffer = new byte[1024];  //Buffer to hold byte input
+    boolean isOK = false;  // Flag set if input correct
+    String theInput = "";  // Input information
+    
+    //Information to be passed to the constructor
+    double a = 0.0;
+    double b = 0.0;
+
+    // Allow the user to enter the three different arguments
+    
+    while (!(isOK))
+    {
+    	isOK = true;
+    	System.out.println("Enter a polar value between 0 and 360(inclusive) of...");
+    	for(int i=0;i<2;i++)
+    	{
+    		System.out.print(i == 0 ? "Rho " : "Theta ");
+    		System.in.read(buffer);
+	        theInput = new String(buffer).trim();
+	        try
+	        {
+	        	double v = Double.valueOf(theInput).doubleValue();
+	            //Convert the input to double values
+	            if (i == 0) {
+	            	a = Double.valueOf(theInput).doubleValue();
+	            	i = ((v>360 || v<0)? -1:i);//Make sure that the value is between 0 and 360
+	            }
+	            else
+	            {
+	            	b = Double.valueOf(theInput).doubleValue();
+	            	i = ((v>360 || v<0)? 0:i);//Make sure that the value is between 0 and 360
+	            }
+	        }
+	        catch(Exception e)
+	        {
+	        	System.out.println("Incorrect input");
+	        	i=3;
+	        	isOK = false;  //Reset flag as so not to end while loop
+	        }
+    	}
+    	
+    }
+    //Return a new PointCP object
+    return (new PointPolar(a, b));
   }
 }
