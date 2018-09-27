@@ -8,7 +8,7 @@
  * @version July 2000
  * @modified September 2018 for SEG 2105lab
  */
-public class PointPolar
+public class PointPolar implements Point
 {
   //Instance variables ************************************************
   
@@ -88,12 +88,12 @@ public class PointPolar
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointPolar pointB)
+  public double getDistance(int x, int y)
   {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
-    double deltaX = getX() - pointB.getX();
-    double deltaY = getY() - pointB.getY();
+    double deltaX = getX() - x;
+    double deltaY = getY() - y;
     
     return Math.sqrt((Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
   }

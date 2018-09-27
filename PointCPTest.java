@@ -6,7 +6,7 @@ import java.io.*;
 
 /**
  * This class has been modified for the lab02\assignement 01 of the class SEG2105\
- * This is the main test modified on purpose
+ * This is the main test modified on purpose to test for the design 2 and 3.
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @Modifiedby Frederick Gaudet and Evan
@@ -30,6 +30,7 @@ public class PointCPTest
 	
     System.out.println("Cartesian-Polar Coordinates Conversion Program");
 
+    //Try to see if the user inserted argument at run
     try
     {
     	coordType = args[0].toUpperCase().charAt(0);
@@ -59,6 +60,7 @@ public class PointCPTest
 	               
 	          System.in.read(buffer);
 	          theInput = new String(buffer).trim();
+	          //Read if the user input C or P
 	          if (!((theInput.toUpperCase().charAt(0) == 'C') 
                   || (theInput.toUpperCase().charAt(0) == 'P')))
               {
@@ -72,11 +74,11 @@ public class PointCPTest
     	  }
     	  if(coordType == 'C')
     	  {    
-    		  pointCart = getCart(coordType);
+    		  pointCart = getCart(coordType);//Return a cartesian variable
     	  }
     	  else if(coordType == 'P')
     	  {
-    		  pointPolar = getPolar(coordType);
+    		  pointPolar = getPolar(coordType);//Return a polar variable
     	  }
       }
       catch(IOException ex)
@@ -134,7 +136,7 @@ public class PointCPTest
 	            else
 	              b = Double.valueOf(theInput).doubleValue();
 	            }
-	        catch(Exception e)
+	        catch(Exception e)//If user input something else than a double
 	        {
 	        	System.out.println("Incorrect input");
 	        	i=3;
