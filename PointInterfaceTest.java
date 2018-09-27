@@ -1,7 +1,3 @@
-// This file contains material supporting section 2.9 of the textbook:
-// "Object Oriented Software Engineering" and is issued under the open-source
-// license found at www.lloseng.com 
-
 import java.io.*;
 
 /**
@@ -14,40 +10,40 @@ import java.io.*;
  * @version July 2000
  * @modified September 2018 for SEG 2105lab
  */
-public class PointCPTest
+public class PointInterfaceTest
 {
   //Class methods *****************************************************
 
   public static void main(String[] args)
   {
-	PointCart pointCart = new PointCart();
-	PointPolar pointPolar = new PointPolar();
+	  Point point;
+	  point = new PointCart();//Put a default value
 	
 	
-	char coordType = 'A';
+	  char coordType = 'A';
 	
-    byte[] buffer = new byte[1024];  //Buffer to hold byte input
-    String theInput = "";  // Input information
-	
-    System.out.println("Cartesian-Polar Coordinates Conversion Program");
+	  byte[] buffer = new byte[1024];  //Buffer to hold byte input
+	  String theInput = "";  // Input information
+	  
+	  System.out.println("Cartesian-Polar Coordinates Conversion Program");
 
-    //Try to see if the user inserted argument at run
-    try
-    {
-    	coordType = args[0].toUpperCase().charAt(0);
-    	if(coordType == 'C')
-    		pointCart = new PointCart(	Double.valueOf(args[1]).doubleValue(),
+	  //Try to see if the user inserted argument at run
+	  try
+	  {
+		  coordType = args[0].toUpperCase().charAt(0);
+		  if(coordType == 'C')
+			  point = new PointCart(	Double.valueOf(args[1]).doubleValue(),
     									Double.valueOf(args[2]).doubleValue());
-    	else if(coordType == 'P')
-    		pointPolar = new PointPolar(Double.valueOf(args[1]).doubleValue(),
+		  else if(coordType == 'P')
+			  point = new PointPolar(Double.valueOf(args[1]).doubleValue(),
     									Double.valueOf(args[2]).doubleValue());
-    }
-    catch(Exception e)
-    {
+	  }
+	  catch(Exception e)
+	  {
       // If we arrive here, it is because either there were no
       // command line arguments, or they were invalid
       if(args.length != 0)
-        System.out.println("Invalid arguments on command line");
+    	  System.out.println("Invalid arguments on command line");
 
       try
       {
@@ -75,11 +71,11 @@ public class PointCPTest
     	  }
     	  if(coordType == 'C')
     	  {    
-    		  pointCart = getCart(coordType);//Return a cartesian variable
+    		  point = getCart(coordType);//Return a cartesian variable
     	  }
     	  else if(coordType == 'P')
     	  {
-    		  pointPolar = getPolar(coordType);//Return a polar variable
+    		  point = getPolar(coordType);//Return a polar variable
     	  }
       }
       catch(IOException ex)
@@ -88,18 +84,23 @@ public class PointCPTest
         return;
       }
     }
-    if(coordType == 'C')
-    {    
-        System.out.println("\nAfter asking to store as Cartesian:\n" + pointCart);
- 
-    }
-    else if(coordType == 'P')
-    {
-    	System.out.println("\nAfter asking to store as Polar:\n" + pointPolar);
-    }
-    else 
-    	System.out.println("Not working please try again");
-
+	  try {
+	    if(coordType == 'C')
+	    {    
+	        System.out.println("\nAfter asking to store as Cartesian:\n" + point);
+	 
+	    }
+	    else if(coordType == 'P')
+	    {
+	    	System.out.println("\nAfter asking to store as Polar:\n" + point);
+	    }
+	    else 
+	    	System.out.println("Not working please try again");
+	  }
+	  catch(Exception ex)
+	  {
+		  
+	  }
 
     
   }
@@ -109,53 +110,53 @@ public class PointCPTest
    */
   private static PointCart getCart(char coordType) throws IOException
   {
-    byte[] buffer = new byte[1024];  //Buffer to hold byte input
-    boolean isOK = false;  // Flag set if input correct
-    String theInput = "";  // Input information
+	  byte[] buffer = new byte[1024];  //Buffer to hold byte input
+	  boolean isOK = false;  // Flag set if input correct
+	  String theInput = "";  // Input information
     
-    //Information to be passed to the constructor
-    double a = 0.0;
-    double b = 0.0;
+	  //Information to be passed to the constructor
+	  double a = 0.0;
+	  double b = 0.0;
 
-    // Allow the user to enter the three different arguments
+	  // Allow the user to enter the three different arguments
     
-    while (!(isOK))
-    {
-    	isOK = true;
-    	System.out.println("Enter the cartesian value of...");
-    	for(int i=0;i<2;i++)
-    	{
-    		System.out.print(i == 0 ? "X " : "Y ");
-    		System.in.read(buffer);
-	        theInput = new String(buffer).trim();
-	        try
-	        {
-	          
-	            //Convert the input to double values
-	            if (i == 0)
-	              a = Double.valueOf(theInput).doubleValue();
-	            else
-	              b = Double.valueOf(theInput).doubleValue();
-	            }
-	        catch(Exception e)//If user input something else than a double
-	        {
-	        	System.out.println("Incorrect input");
-	        	i=3;
-	        	isOK = false;  //Reset flag as so not to end while loop
-	        }
-    	}
-    	
-    }
-    //Return a new PointCP object
-    return (new PointCart(a, b));
-  }
+	  while (!(isOK))
+	  {
+		  isOK = true;
+		  System.out.println("Enter the cartesian value of...");
+		  for(int i=0;i<2;i++)
+		  {
+			  System.out.print(i == 0 ? "X " : "Y ");
+			  System.in.read(buffer);
+			  theInput = new String(buffer).trim();
+			  try
+			  {
+				  
+				  //Convert the input to double values
+				  if (i == 0)
+					  a = Double.valueOf(theInput).doubleValue();
+				  else
+					  b = Double.valueOf(theInput).doubleValue();
+	            	}
+			  catch(Exception e)//If user input something else than a double
+			  {
+				  System.out.println("Incorrect input");
+				  i=3;
+				  isOK = false;  //Reset flag as so not to end while loop
+			  }
+		  }
+		  
+	  }
+	  //Return a new PointCP object
+	  return (new PointCart(a, b));
+  	}
   
-  /**
-   * This method only work for polar coordinate
-   */
-  private static PointPolar getPolar(char coordType) throws IOException
-  {
-    byte[] buffer = new byte[1024];  //Buffer to hold byte input
+  	/**
+  	 * 	This method only work for polar coordinate
+   	*/
+  	private static PointPolar getPolar(char coordType) throws IOException
+  	{
+  		byte[] buffer = new byte[1024];  //Buffer to hold byte input
     boolean isOK = false;  // Flag set if input correct
     String theInput = "";  // Input information
     

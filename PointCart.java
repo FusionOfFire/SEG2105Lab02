@@ -4,7 +4,8 @@
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge
- * @Modifiedby Frederick Gaudet and Evan
+ * @Modifiedby Zhuobin Ma - 7469161
+ * @Modifiedby Frederick Gaudet - 8035208
  * @version July 2000
  * @modified September 2018 for SEG 2105lab
  */
