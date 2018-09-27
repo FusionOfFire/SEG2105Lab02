@@ -2,7 +2,7 @@ import java.io.*;
 
 /**
  * This class has been modified for the lab02\assignement 01 of the class SEG2105\
- * This is the main test modified on purpose to test for the design 2 and 3.
+ * This is the main test modified on purpose to test for the design 6.
  *
  * @author Fran&ccedil;ois B&eacute;langer
  * @Modifiedby Zhuobin Ma - 7469161
