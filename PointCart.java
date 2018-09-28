@@ -39,10 +39,24 @@ public class PointCart implements Point
   /**
    * Constructs a coordinate object, with a type identifier.
    */
-  public PointCart(double x, double y)
+  public PointCart(char type, double x, double y)
   {
-    this.x = x;
-    this.y = y;
+	  //Make sure good argument as been send to constructor
+	  if((	Character.toUpperCase(type) != 'C') &&
+			Character.toUpperCase(type) != 'P' )
+		  throw new IllegalArgumentException();//Send an error
+	  
+	  //If it is polar convert it
+	  if(Character.toUpperCase(type) == 'P')
+	  {
+		  double rho = x;//Save temporary the x because it will get changed
+		  x = (Math.cos(Math.toRadians(y)) * x);
+		  y = (Math.sin(Math.toRadians(y)) * rho);
+	  }
+	  
+	  //Just save it
+	  this.x = x;
+	  this.y = y;
   }
   
   /**
@@ -116,7 +130,7 @@ public class PointCart implements Point
     double X = getX();
     double Y = getY();
         
-    return new PointCart((Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+    return new PointCart('C',(Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
       (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
 

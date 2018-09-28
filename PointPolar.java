@@ -1,3 +1,4 @@
+import java.io.*;
 /**
  * This class has been modified for the lab02\assignement 01 of the class SEG2105\
  * Design #02 (Store polar coordinates only)
@@ -34,13 +35,30 @@ public class PointPolar implements Point
   }
   /**
    * Constructs a coordinate object, with a type identifier.
+   * 
    */
-  public PointPolar(double rho, double theta)
+  public PointPolar(char type, double rho, double theta)
   {
-    if((rho>360 || rho < 0)&&(theta > 360 || theta < 0))
-      throw new IllegalArgumentException();
-    this.rho = rho;
-    this.theta = theta;
+	  
+	  //Make sure good argument as been send to constructor
+	  if((	Character.toUpperCase(type) != 'C') &&
+			Character.toUpperCase(type) != 'P' )
+		  throw new IllegalArgumentException();//Send an error
+	  
+	  //If it is cartesian, convert it to polar
+	  if(Character.toUpperCase(type) == 'C')
+	  {
+		  double x = rho;//Save temporary the rho because it will get changed
+		  rho = Math.sqrt(Math.pow(rho, 2) + Math.pow(theta, 2));//Compute rho
+		  theta = Math.toDegrees(Math.atan2(theta, x));//Compute theta
+	  }
+	  
+	  //Just save it
+	  if((rho>360 || rho < 0)&&(theta > 360 || theta < 0))
+		  throw new IllegalArgumentException();
+	  this.rho = rho;
+	  this.theta = theta;
+
   }
   
   /**
@@ -113,7 +131,7 @@ public class PointPolar implements Point
     double X = getX();
     double Y = getY();
         
-    return new PointPolar((Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+    return new PointPolar('P',(Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
       (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
 
