@@ -16,7 +16,7 @@ public class LoadTesting
 	
 	public static void main(String[] args)
 	{
-		//testDesignThreeAndTwo();
+		testDesignThreeAndTwo();
 		//testDesignSix();
 		
 	}
@@ -47,7 +47,7 @@ public class LoadTesting
 			double x = (Math.random() * 1000);
 			double y = (Math.random() * 1000);
 			
-			pc[i] = new PointCart(x,y);
+			pc[i] = new PointCart('C',x,y);
 		}
 
 		endTime = System.currentTimeMillis();
@@ -66,7 +66,7 @@ public class LoadTesting
 			double x = (Math.random() * 360);
 			double y = (Math.random() * 360);
 			
-			pp[i] = new PointPolar(x,y);
+			pp[i] = new PointPolar('P',x,y);
 		}
 
 		endTime = System.currentTimeMillis();
@@ -101,7 +101,7 @@ public class LoadTesting
 			double x = (Math.random() * 1000);
 			double y = (Math.random() * 1000);
 			
-			pc[i] = new PointCart(x,y);
+			pc[i] = new PointCart('C',x,y);
 		}
 
 		endTime = System.currentTimeMillis();
@@ -120,7 +120,7 @@ public class LoadTesting
 			double x = (Math.random() * 360);
 			double y = (Math.random() * 360);
 			
-			pp[i] = new PointPolar(x,y);
+			pp[i] = new PointPolar('P',x,y);
 		}
 
 		endTime = System.currentTimeMillis();
