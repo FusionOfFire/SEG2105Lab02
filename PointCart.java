@@ -134,6 +134,24 @@ public class PointCart implements Point
       (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
 
+	/**
+   * Converts Cartesian coordinates to Polar coordinates.
+   */
+  public PointPolar convertStorageToPolar()
+  {
+      PointPolar tmp = new PointPolar('P', getRho(), getTheta());
+
+      return tmp;    
+  }
+  
+  /**
+   * Converts Polar coordinates to Cartesian coordinates.
+   */
+  public PointCart convertStorageToCartesian()
+  {
+    return this;
+  }
+  
   /**
    * Returns information about the coordinates.
    *

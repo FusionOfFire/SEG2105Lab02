@@ -84,6 +84,10 @@ public class PointPolarTest
     if(coordType == 'P' || coordType == 'C')
     {
     	System.out.println("\nAfter asking to store as Polar:\n" + pointPolar);
+    	System.out.println("Testing getX() : " + pointPolar.getX());
+    	System.out.println("Testing getY() : " + pointPolar.getY());
+    	System.out.println("Testing getRho() : " + pointPolar.getRho());
+    	System.out.println("Testing getTheta() : " + pointPolar.getTheta());
     }
     else 
     	System.out.println("Not working please try again");

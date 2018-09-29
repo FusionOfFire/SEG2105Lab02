@@ -42,7 +42,7 @@ public class PointPolar implements Point
 	  
 	  //Make sure good argument as been send to constructor
 	  if((	Character.toUpperCase(type) != 'C') &&
-			Character.toUpperCase(type) != 'P' )
+			Character.toUpperCase(type) != 'P'  )
 		  throw new IllegalArgumentException();//Send an error
 	  
 	  //If it is cartesian, convert it to polar
@@ -116,7 +116,21 @@ public class PointPolar implements Point
     
     return Math.sqrt((Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
   }
-
+  
+  public PointPolar convertStorageToPolar()
+  {
+	  return this;
+  }
+  
+  /**
+   * Converts Polar coordinates to Cartesian coordinates.
+   */
+  public PointCart convertStorageToCartesian()
+  {
+    PointCart tmp = new PointCart('C', getX(), getY());
+    return tmp;
+  }
+  
   /**
    * Rotates the specified point by the specified number of degrees.
    * Not required until E2.30

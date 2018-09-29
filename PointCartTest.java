@@ -84,6 +84,10 @@ public class PointCartTest
     if(coordType == 'P' || coordType == 'C')
     {
     	System.out.println("\nAfter asking to store as Cartesian:\n" + pointCart);
+    	System.out.println("Testing getX() : " + pointCart.getX());
+    	System.out.println("Testing getY() : " + pointCart.getY());
+    	System.out.println("Testing getRho() : " + pointCart.getRho());
+    	System.out.println("Testing getTheta() : " + pointCart.getTheta());
     }
     else 
     	System.out.println("Not working please try again");
